@@ -1,0 +1,27 @@
+{
+  "name": "telecomnbiotnorthsdk",
+  "version": "1.0.0",
+  "description": "telecom nbiot north sdk",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "mocha --harmony"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alwayss/TelecomNBIotNorthSDK.git"
+  },
+  "keywords": [
+    "nbiot",
+    "north"
+  ],
+  "author": "huangwj",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Alwayss/TelecomNBIotNorthSDK/issues"
+  },
+  "homepage": "https://github.com/Alwayss/TelecomNBIotNorthSDK#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  }
+}
