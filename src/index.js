@@ -109,6 +109,8 @@ TelecomNBNorthSDK.prototype.sendCommand = function (deviceId, serviceId, command
   });
 };
 
+module.exports = TelecomNBNorthSDK;
+
 function request(type, opts, body, cb) {
   type = type.toLowerCase();
   if (typeof body === "function") {
@@ -148,11 +150,6 @@ function deepCopy(obj) {
   // null, undefined, non-object, function
   if (!obj || typeof obj !== 'object') {
     return obj;
-  }
-
-  // DOM Node
-  if (obj.nodeType && 'cloneNode' in obj) {
-    return obj.cloneNode(true);
   }
 
   // Date
