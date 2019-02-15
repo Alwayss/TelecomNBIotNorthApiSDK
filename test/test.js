@@ -1,4 +1,4 @@
-var assert = require('assert');
+var should = require('should');
 var fs = require('fs');
 var TelecomNBNorthSDK = require('..');
 
@@ -6,36 +6,39 @@ var telecomNBNorthSDK = new TelecomNBNorthSDK({
   host: '180.101.147.89',
   port: 8743,
   cert: fs.readFileSync('./cert/outgoing.CertwithKey.pem'),
-  passphrase: '123456',
-  appId: 'GnkVZrG3LL1f7xROKJe7wLTJNcEa',
-  secret: '4nKWxW5z8ytateSfh2vXQ5FCXEAas'
+  passphrase: 'xxxxx',
+  appId: 'xxxx',
+  secret: 'xxx'
 });
 
-var deviceId = '95dfbe0b-fa7c-4645-912d-c286cb68bbdc';
+var deviceId = 'xxxxxxxx';
 
 describe('TelecomNBNorthSDK', function() {
   describe('#init()', function() {
-    it('err should be undefined', function() {
+    it('should init without error', function(done) {
       telecomNBNorthSDK.init(function(err) {
-        assert.ifError(err);
+        should.not.exist(err);
+        done();
       })
     });
   });
 
   describe('#getDeviceCommands()', function(){
-    it('err should be undefined, data should be array', function() {
+    it('err should be undefined, data should be array', function(done) {
       telecomNBNorthSDK.getDeviceCommands(deviceId, function(err, data) {
-        assert.ifError(err);
-        assert()
+        should.not.exist(err);
+        should(data).be.a.Array();
+        done();
       })
     });
   });
 
   describe('#sendCommand()', function(){
-    it('err should be undefined, data should be object', function() {
+    it('err should be undefined, data should be object', function(done) {
       telecomNBNorthSDK.sendCommand(function(err, data) {
-        assert.ifError(err);
-        assert()
+        should.not.exist(err);
+        data.should.be.a.Object();
+        done();
       })
     });
   });
