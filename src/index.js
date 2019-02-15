@@ -1,4 +1,5 @@
 'use strict';
+
 const https = require('https');
 const querystring = require('querystring');
 
@@ -13,7 +14,7 @@ function TelecomNBNorthSDK(option) {
   }
 
   if (!option.hasOwnProperty('appId') || !option.hasOwnProperty('secret')) {
-    throw new Error('cert or passphrase can\'t be null');
+    throw new Error('appId or secret can\'t be null');
   }
 
   this.option = {
@@ -62,7 +63,7 @@ TelecomNBNorthSDK.prototype.authorization = function (cb) {
   });
 };
 
-TelecomNBNorthSDK.prototype.getDeviceComands = function (deviceId, cb) {
+TelecomNBNorthSDK.prototype.getDeviceCommands = function (deviceId, cb) {
   var requestOpts = deepCopy(this.option);
   requestOpts.path = '/iocm/app/cmd/v1.4.0/deviceCommands';
   requestOpts.method = 'GET';
@@ -109,8 +110,6 @@ TelecomNBNorthSDK.prototype.sendCommand = function (deviceId, serviceId, command
   });
 };
 
-module.exports = TelecomNBNorthSDK;
-
 function request(type, opts, body, cb) {
   type = type.toLowerCase();
   if (typeof body === "function") {
@@ -147,8 +146,8 @@ function request(type, opts, body, cb) {
 function deepCopy(obj) {
   var _toString = Object.prototype.toString;
 
-  // null, undefined, non-object, function
-  if (!obj || typeof obj !== 'object') {
+  // null, undefined, non-object, function, buffer
+  if (!obj || typeof obj !== 'object' || Buffer.isBuffer(obj)) {
     return obj;
   }
 
@@ -183,3 +182,5 @@ function deepCopy(obj) {
 
   return result;
 }
+
+module.exports = TelecomNBNorthSDK;

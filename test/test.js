@@ -1,38 +1,42 @@
-function deepCopy(obj) {
-  console.log(obj);
-  var _toString = Object.prototype.toString;
+var assert = require('assert');
+var fs = require('fs');
+var TelecomNBNorthSDK = require('..');
 
-  // null, undefined, non-object, function
-  if (!obj || typeof obj !== 'object') {
-    return obj;
-  }
+var telecomNBNorthSDK = new TelecomNBNorthSDK({
+  host: '180.101.147.89',
+  port: 8743,
+  cert: fs.readFileSync('./cert/outgoing.CertwithKey.pem'),
+  passphrase: '123456',
+  appId: 'GnkVZrG3LL1f7xROKJe7wLTJNcEa',
+  secret: '4nKWxW5z8ytateSfh2vXQ5FCXEAas'
+});
 
-  // Date
-  if (_toString.call(obj) === '[object Date]') {
-    return new Date(obj.getTime());
-  }
+var deviceId = '95dfbe0b-fa7c-4645-912d-c286cb68bbdc';
 
-  // RegExp
-  if (_toString.call(obj) === '[object RegExp]') {
-    var flags = [];
-    if (obj.global) { flags.push('g'); }
-    if (obj.multiline) { flags.push('m'); }
-    if (obj.ignoreCase) { flags.push('i'); }
+describe('TelecomNBNorthSDK', function() {
+  describe('#init()', function() {
+    it('err should be undefined', function() {
+      telecomNBNorthSDK.init(function(err) {
+        assert.ifError(err);
+      })
+    });
+  });
 
-    return new RegExp(obj.source, flags.join(''));
-  }
+  describe('#getDeviceCommands()', function(){
+    it('err should be undefined, data should be array', function() {
+      telecomNBNorthSDK.getDeviceCommands(deviceId, function(err, data) {
+        assert.ifError(err);
+        assert()
+      })
+    });
+  });
 
-  var result = Array.isArray(obj) ? [] : obj.constructor ? new obj.constructor() : {};
-
-  console.log(result);
-
-  for (var key in obj) {
-    if(obj.hasOwnProperty(key)){
-      result[key] = deepCopy(obj[key]);
-    }
-  }
-
-  return result;
-}
-
-console.log(typeof deepCopy());
+  describe('#sendCommand()', function(){
+    it('err should be undefined, data should be object', function() {
+      telecomNBNorthSDK.sendCommand(function(err, data) {
+        assert.ifError(err);
+        assert()
+      })
+    });
+  });
+});
